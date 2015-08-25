@@ -36,36 +36,17 @@
         $table1->id_season = 9;
         $table1->dt_init = '2015-01-01';
         $table1->dt_end = '2015-09-01';
-        
-//Array ( [Field] => dt_init [Type] => date [Null] => NO [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => dt_end [Type] => date [Null] => NO [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => monthprice [Type] => decimal(10,2) [Null] => YES [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => weekprice [Type] => decimal(10,2) [Null] => YES [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => nightweekprice [Type] => decimal(10,2) [Null] => YES [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => weekendprice [Type] => decimal(10,2) [Null] => YES [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => extranightweekendprice [Type] => decimal(10,2) [Null] => YES [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => extranightprice [Type] => decimal(10,2) [Null] => YES [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => specialeventprice [Type] => decimal(10,2) [Null] => YES [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => minimumunit [Type] => varchar(20) [Null] => NO [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => minimumvalue [Type] => int(11) [Null] => NO [Key] => [Default] => [Extra] => [Value] => ) 
-//
-//Array ( [Field] => dateupdate [Type] => timestamp [Null] => NO [Key] => [Default] => CURRENT_TIMESTAMP [Extra] => on update CURRENT_TIMESTAMP [Value] => ) 
-//
-//Array ( [Field] => dateinsert [Type] => timestamp [Null] => NO [Key] => [Default] => 0000-00-00 00:00:00 [Extra] => [Value] => ) 
-
-
-        
-	$table1->insert('cdo_house_pictures');
+        $table1->monthprice = 20;
+        $table1->weekprice = 20;
+        $table1->nightweekprice = 20;
+        $table1->weekendprice = 20;
+        $table1->extranightweekendprice = 20;
+        $table1->specialeventprice = 20;
+        $table1->minimumunit = "Week(s)";
+        $table1->minimumvalue = 20;
+        $table1->dateinsert = '2012-01-27 22:36:09';
+       
+	$table1->insert('cdo_house_pricing');
 
 ?>	
 </body>

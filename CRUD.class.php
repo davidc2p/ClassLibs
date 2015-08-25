@@ -10,6 +10,7 @@
 namespace webrickco\model {
     class CRUD {
         var $model;
+        var $tableName;
         var $arr_fields = array();
 		
         public function __set($name, $value) 
@@ -26,11 +27,12 @@ namespace webrickco\model {
 
             foreach ($arr_tables as $table) {
                 if ($table == $tableName)
-                        $tableFound=true;
+                    $tableFound=true;
             }
             if (!$tableFound)
                 die("This table does not exists in the database!");
-
+            
+            $this->tableName = $tableName;
             $this::createFieldsProp($tableName);
 
             return 0;
@@ -49,6 +51,12 @@ namespace webrickco\model {
             } 
             return $value; 
 	}
+        
+        private function is_timestamp($timestamp) {
+            if(strtotime(date('d-m-Y H:i:s',$timestamp)) === (int)$timestamp) {
+                return true;
+            } else return false;
+        }
         
         private function createFieldsProp($tableName) 
         {
@@ -101,9 +109,18 @@ namespace webrickco\model {
             if (strpos($column['Type'], 'date') !== false)
             {
                 $date = date_parse($column['Value']);
-                
-                print $date["error_count"];
+
                 if ($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"])) {
+                    $return = true;
+                } else {
+                    $return = false; //"There's a problem with the value entered for field $column['Field']"; 
+                }
+            }
+            
+            //Timestamps
+            if (strpos($column['Type'], 'timestamp') !== false)
+            {
+                if ($this::is_timestamp($column['Value'])) {
                     $return = true;
                 } else {
                     $return = false; //"There's a problem with the value entered for field $column['Field']"; 
@@ -119,7 +136,6 @@ namespace webrickco\model {
             $sql = "INSERT INTO $tableName ";
             $sqlFields = "(";
             $sqlValues = "VALUES (";
-                
 			
             foreach($this->arr_fields as $columns) {
                 if ($this::validadeColumn($columns))
