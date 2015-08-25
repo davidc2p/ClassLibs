@@ -17,6 +17,11 @@ namespace webrickco\model {
         var $db;
         var $path;
         var $arr_tables = array();
+        var $result = array(
+            'return' => '',
+            'error' => '',
+            'errordesc' => ''
+        );
         
         function __construct($hostname, $database, $admin, $password, $prefix) 
 	{
@@ -124,15 +129,17 @@ namespace webrickco\model {
             $response=mysql_query($sql, $this->db);
 		
             if (!$response) {
-                //mysql_errno($link)
-                print mysql_error($this->db);
-		$ret = false;
+		$this->result['return'] = false;
+                $this->result['error'] = mysql_errno($this->db);
+                $this->result['errordesc'] = mysql_error($this->db);
             }
             else
             {
-                $ret = true;
+                $this->result['return'] = true;
+                $this->result['error'] = '';
+                $this->result['errordesc'] = '';
             }
-            return $ret;
+            return $this->result;
         }
     }
 }
