@@ -124,6 +124,7 @@ namespace webrickco\model {
             $response=mysql_query($sql, $this->db);
 		
             if (!$response) {
+                //mysql_errno($link)
                 print mysql_error($this->db);
 		$ret = false;
             }
