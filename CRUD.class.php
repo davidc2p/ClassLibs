@@ -58,7 +58,7 @@ namespace webrickco\model {
                         return true; 
                     } 
                 } 
-                return false; 
+            return false; 
         }
         
         private function createFieldsProp($tableName) 
@@ -152,9 +152,11 @@ namespace webrickco\model {
 
             $sql .= $sqlFields.$sqlValues;
             $result = $this->model->insert($sql);
-            if (!$result)
-                print "erro!!!!!";
-            print "<br/>".$sql; 
+
+            if (!$result['return']) {
+                print "<br/>Error: ".$result['error'];
+                print "<br/>Description: ".$result['errordesc'];
+            }
         }
     }
 }
