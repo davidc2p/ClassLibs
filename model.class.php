@@ -123,10 +123,14 @@ namespace webrickco\model {
         {
             $response=mysql_query($sql, $this->db);
 		
-            if (!$response)
+            if (!$response) {
+                print mysql_error($this->db);
 		$ret = false;
+            }
             else
+            {
                 $ret = true;
+            }
             return $ret;
         }
     }
