@@ -88,13 +88,28 @@ namespace webrickco\model {
             }
             
             //decimal
-            if (strpos($column['Type'], 'decimal') !== false)
+            if (strpos($column['Type'], 'decimal') !== false) 
             {
-                if (is_float($column['Value']) || is_int($column['Value']))
+                if (is_float($column['Value']) || is_int($column['Value'])) {
                     $return = true;
-                else
+                } else {
                     $return = false; //"There's a problem with the value entered for field $column['Field']"; 
+                }
             }
+            
+            //dates
+            if (strpos($column['Type'], 'date') !== false)
+            {
+                $date = date_parse($column['Value']);
+                
+                print $date["error_count"];
+                if ($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"])) {
+                    $return = true;
+                } else {
+                    $return = false; //"There's a problem with the value entered for field $column['Field']"; 
+                }
+            }
+            
             return $return;
         }
 		
@@ -117,7 +132,9 @@ namespace webrickco\model {
             $sqlValues=  substr($sqlValues, 0, strlen($sqlValues) - 2) . ") ";
 
             $sql .= $sqlFields.$sqlValues;
-            $this->model->insert($sql);
+            $result = $this->model->insert($sql);
+            if (!$result)
+                print "erro!!!!!";
             print "<br/>".$sql; 
         }
     }
