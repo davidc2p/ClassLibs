@@ -165,13 +165,14 @@ namespace model {
                 print "<br/>Error: ".$result['error'];
                 print "<br/>Description: ".$result['errordesc'];
             }
+            print $sql;
         }
         
         function delete($tableName)
         { 
             $this::fillingvalues();
             
-            $sql = "DELETE $tableName WHERE";
+            $sql = "DELETE FROM $tableName WHERE ";
             $sqlFieldsValues = "";
  			
             foreach($this->arr_fields as $columns) {
@@ -179,15 +180,15 @@ namespace model {
                     $sqlFieldsValues.= $columns['Field']." = " .$this::quote_smart($columns['Value'])." AND ";
                 }
             }
-            $sqlFieldsValues=  substr($sqlFieldsValues, 0, strlen($sqlFieldsValues) - 5) . ") ";            
+            $sqlFieldsValues=  substr($sqlFieldsValues, 0, strlen($sqlFieldsValues) - 5);            
 
             $sql .= $sqlFieldsValues;
-            //$result = $this->model->executeDb($sql);
+            $result = $this->model->executeDb($sql);
 
-//            if (!$result['return']) {
-//                print "<br/>Error: ".$result['error'];
-//                print "<br/>Description: ".$result['errordesc'];
-//            }
+            if (!$result['return']) {
+                print "<br/>Error: ".$result['error'];
+                print "<br/>Description: ".$result['errordesc'];
+            }
             print $sql;
         }
     }
