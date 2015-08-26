@@ -1,14 +1,17 @@
 <?php
-// ************************************************
-// This file has been written by David Domingues
-// you are free to use it and change it as you need
-// but i will ask you to keep this header on the file
-// and never remove it.
-// webrickco@gmail.com
-// ************************************************
 // PHP Document
-namespace webrickco\model {
-    class database {
+/** @class: Model (PHP5-Strict with comments)
+  * @project: PHP Simple ORM
+  * @date: 26-08-2015
+  * @version: 1.0.0_php5
+  * @author: David Domingues
+  * @contributors: 
+  * @copyright: David Domingues
+  * @email: dadomingues@gmail.com
+  * @license: GNU General Public License (GPL)
+  */
+namespace model {
+    class Model {
         var $hostname;
         var $database;
         var $admin;
@@ -40,7 +43,7 @@ namespace webrickco\model {
 
             $this->db = $db;
 
-            $this->generic = new \webrickco\utils\Generic($this->hostname, $this->database, $this->admin, $this->password, $this->prefix);
+            $this->generic = new \utils\Generic($this->hostname, $this->database, $this->admin, $this->password, $this->prefix);
 
             return 0;
         }
@@ -124,7 +127,7 @@ namespace webrickco\model {
             }
         }
         
-        function insert($sql)
+        function executeDb($sql)
         {
             $response=mysql_query($sql, $this->db);
 		
