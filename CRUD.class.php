@@ -53,9 +53,12 @@ namespace webrickco\model {
 	}
         
         private function is_timestamp($timestamp) {
-            if(strtotime(date('d-m-Y H:i:s',$timestamp)) === (int)$timestamp) {
-                return true;
-            } else return false;
+            if (preg_match("/^(\d{4})-(\d{2})-(\d{2}) ([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/", $timestamp, $matches)) { 
+                    if (checkdate($matches[2], $matches[3], $matches[1])) { 
+                        return true; 
+                    } 
+                } 
+            return false; 
         }
         
         private function createFieldsProp($tableName) 
@@ -149,9 +152,11 @@ namespace webrickco\model {
 
             $sql .= $sqlFields.$sqlValues;
             $result = $this->model->insert($sql);
-            if (!$result)
-                print "erro!!!!!";
-            print "<br/>".$sql; 
+
+            if (!$result['return']) {
+                print "<br/>Error: ".$result['error'];
+                print "<br/>Description: ".$result['errordesc'];
+            }
         }
     }
 }
